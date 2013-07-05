@@ -1,0 +1,15 @@
+[
+	{
+		"id": 		"vlc_host",
+		"label": 	"HOST",
+		"type": 	"text",
+		"default": 	"127.0.0.1", 
+	},
+	
+	{
+		"id":		"vlc_port",
+		"label": 	"port",
+		"type": 	"text",
+		"default": 	"1234", 
+	},
+]

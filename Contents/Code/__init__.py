@@ -3,6 +3,8 @@ NAME = 'VLC Player'
 ART = 'art-default.jpg'
 ICON = 'icon-default.png'
 PLUGIN_PREFIX = '/video/vlc'
+url_vlc = 'http://%s:%s' % (Prefs['vlc_host'], Prefs['vlc_port'])
+TEXT_TITLE = 'VLC Plugin'
 
 ####################################################################################################
 
@@ -16,13 +18,16 @@ def Start():
 
 ####################################################################################################
 
+@handler('/video/vlc', TEXT_TITLE, thumb=ICON, art=ART)
 def MainMenu():
-        oc = ObjectContainer(title1="VLC Player")
+
+		oc = ObjectContainer(title1="VLC Player")
         
-        mo = MediaObject(parts=[PartObject(key=HTTPLiveStreamURL("http://127.0.0.1:1234"))])
+        	mo = MediaObject(parts=[PartObject(key=HTTPLiveStreamURL("%s" % (url_vlc)))])
+		vco = VideoClipObject(title="Play VLC Stream", url='%s' % (url_vlc))
+        	vco.add(mo)
+        	oc.add(vco)
         
-        vco = VideoClipObject(title="Play local VLC stream", url='http://127.0.0.1:1234')
-        vco.add(mo)
-        oc.add(vco)
-        
-        return oc
+		oc.add(PrefsObject(title = L('Preferences')))
+
+		return oc
